@@ -1,0 +1,126 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Ficting task1 submission by Achint and Shubh Bansal ">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Ficting Task1</title>
+    
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <section class="container" >
+        <div class="content">
+            <h1>Hello! <span id="username"> User</span></h1>
+            <p>This thing is brought to you by Shubh Bansal & Achint Singh 
+                <br />as a submission for the Ficting task 1.</p>
+            <p>Scroll to Begin</p>
+
+        </div>
+    </section>
+
+    <section class="container">
+        <div class="content">
+            <h1 id="usercontact" ></h1>
+            <p>is where we can reach you out</p>
+        </div>
+    </section>
+
+    <section class="container">
+        <div class="content">
+            <p>You've lived</p>
+            <h1 id="userage" ></h1>
+        </div>
+    </section>
+
+    <section class="container">
+        <div class="content">
+            <p>You are a</p>
+            <h1 id="usergender" ></h1>
+        </div>
+    </section>
+
+    <section class="container">
+        <div class="content">
+            <h1 id="userstatus" ></h1>
+            <p>You should probably get going now.<br/> BYEEE!!!</p>
+        </div>
+    </section>
+
+    <div id="set-height"></div>
+
+    <video id="v0" tabindex="0", autobuffer preload>
+        <source type='video/mp4;codecs="avc1.42E01E, mp4a.40.2"' src="video.mp4"></source>
+    </video>
+    
+    <script src="script.js"></script>
+    
+    <script type="text/javascript" >
+        let userDetails = JSON.parse(localStorage.getItem('userDetails'));
+        if (userDetails===null) {
+            username = prompt("Hello User", "Please tell us your name!");
+            userage = prompt("Your age");
+            usercontact = prompt("Your contact info");
+            usergender = prompt("Your Gender");
+            userstatus = prompt("What do you do? Study or Work ?")
+
+            userDetails = {
+                username: username, 
+                userage:userage, 
+                usercontact:usercontact, 
+                usergender:usergender, 
+                userstatus:userstatus };
+            localStorage.setItem('userDetails', JSON.stringify(userDetails));
+        }
+        username = userDetails.username;
+        userage = userDetails.userage;
+        usercontact = userDetails.usercontact;
+        usergender = userDetails.usergender;
+        userstatus = userDetails.userstatus;
+
+        document.getElementById('username').innerHTML = username;
+        document.getElementById('userage').innerHTML = userage+ ' years';
+        document.getElementById('usergender').innerHTML = usergender;
+        document.getElementById('usercontact').innerHTML = usercontact;
+        document.getElementById('userstatus').innerHTML = userstatus+"ing Time!!";
+    </script>
+
+    <script>
+
+        enterView({
+            selector: 'section',
+            enter: function(el) {
+                el.classList.add('entered');
+            }
+        })
+    
+        var frameNumber = 0, // start video at frame 0
+        // lower numbers = faster playback
+        playbackConst = 1000, 
+        // get page height from video duration
+        setHeight = document.getElementById("set-height"), 
+        // select video element         
+        vid = document.getElementById('v0'); 
+        // var vid = $('#v0')[0]; // jquery option
+
+    // dynamically set the page height according to video length
+    vid.addEventListener('loadedmetadata', function() {
+    setHeight.style.height = Math.floor(vid.duration) * playbackConst + "px";
+    });
+
+
+    // Use requestAnimationFrame for smooth playback
+    function scrollPlay(){  
+    var frameNumber  = window.pageYOffset/playbackConst;
+    vid.currentTime  = frameNumber;
+    window.requestAnimationFrame(scrollPlay);
+    }
+
+    window.requestAnimationFrame(scrollPlay);
+    
+    </script>
+</body>
+</html>
